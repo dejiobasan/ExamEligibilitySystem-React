@@ -36,6 +36,34 @@ router.route("/EnrolStudent").post((req, res) => {
   });
 });
 
+router.route("/examLogin").post((req, res) => {
+  const { matricno, password } = req.body;
+
+  Student.findOne({ Matricnumber: matricno}, (err, foundStudent) => {
+    if (err) {
+      console.error(err);
+      res.status(401).json({
+        message: "Login failed",
+      });
+    } else {
+      if (foundStudent) {
+        bcrypt.compare(password, foundStudent.Password, (err, result) => {
+          if (result === true) {
+            res.status(200).json({
+              success: true,
+              message: "Login Successful!",
+              Student: {
+                Name: foundStudent.Firstname + foundStudent.Lastname,
+                Matricnumber: foundStudent.Matricnumber,
+              }
+            });
+          }
+        });
+      }
+    }
+  });
+});
+
 
 
 module.exports = router;
