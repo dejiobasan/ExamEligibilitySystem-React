@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 
 router.route("/EnrolLecturer").post((req, res) => {
   const { firstname, lastname, lecturerno, coursecode, coursetitle, password } = req.body;
-  const saltRounds = 10;
+  const saltRounds = process.env.saltRounds;
 
   bcrypt.hash(password, saltRounds, (err, hash) => {
     const newLecturer = new Lecturer({

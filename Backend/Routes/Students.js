@@ -11,7 +11,7 @@ router.route("/EnrolStudent").post((req, res) => {
   const uniqueID = `${"CEE"}${firstTwoChars}${paddedRandomNumber}`;
 
   const { firstname, lastname, matricno, coursecode, coursetitle, password } = req.body;
-  const saltRounds = 10;
+  const saltRounds = process.env.saltRounds;
   bcrypt.hash(password, saltRounds, (err, hash) => {
     const newStudent = new Student({
       ExamID: uniqueID,
