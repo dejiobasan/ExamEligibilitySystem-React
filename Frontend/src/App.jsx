@@ -1,11 +1,9 @@
-import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./Pages/Home/Home";
-import Footer from "./Pages/Home/Footer";
-import enrollStudents from "./Pages/EnrollStudents/enrollStudents";
-import enrollLecturers from "./Pages/EnrollLecturers/enrollLecturers";
-import examCheckin from "./Pages/ExamCheckin/examCheckin";
-import lecturerLogin from "./Pages/ExamCheckin/lecturerLogin";
+import Home from "./Components/Home";
+import EnrollStudents from "./Components/enrollStudents";
+import EnrollLecturers from "./Components/enrollLecturers";
+import ExamCheckin from "./Components/examCheckin";
+import LecturerLogin from "./Components/lecturerLogin";
 
 
 function App() {
@@ -14,10 +12,10 @@ function App() {
       <div className="container">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/EnrollStudents" element={<enrollStudents />} />
-            <Route path="/EnrollLecturers" element={<enrollLecturers />} />
-            <Route path="/ExamCheckIn" element={<examCheckin />} />
-            <Route path="/LecturerLogin" element={<lecturerLogin />} />
+            <Route path="/EnrollStudents" element={<EnrollStudents />} />
+            <Route path="/EnrollLecturers" element={<EnrollLecturers />} />
+            <Route path="/ExamCheckIn" element={<ExamCheckin />} />
+            <Route path="/LecturerLogin" element={<LecturerLogin />} />
           </Routes>
       </div>
     </Router>

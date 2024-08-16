@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 function Home() {
   return (
-    <div>
-      <body className="d-flex h-100 text-center">
+    <div className="home">
+      <div className="d-flex h-100 text-center">
         <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
           <header className="mb-auto">
             <div>
@@ -48,7 +48,7 @@ function Home() {
               examination.
             </p>
             <p className="lead">
-              <Link className="btn" to="/EnrollStudents" role="button">
+              <Link className="btn1" to="/EnrollStudents" role="button">
                 Get Started
               </Link>
             </p>
@@ -56,9 +56,9 @@ function Home() {
 
           <footer className="mt-auto text-white-50">
             <p>
-              Developed and Designed by
+              Developed and Designed by 
               <Link to="#" className="text-white">
-                Inioluwa
+              Inioluwa
               </Link>
               , and
               <Link to="#" className="text-white">
@@ -68,7 +68,7 @@ function Home() {
             </p>
           </footer>
         </div>
-      </body>
+      </div>
     </div>
   );
 }
