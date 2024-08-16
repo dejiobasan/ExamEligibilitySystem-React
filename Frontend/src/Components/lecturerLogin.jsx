@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function LecturerLogin() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -9,6 +11,8 @@ function LecturerLogin() {
     password: "",
   });
 
+  const navigate = useNavigate();
+
   function handleChange(event) {
     const { value, name } = event.target;
     setDetails((prevState) => ({ ...prevState, [name]: value }));
@@ -16,6 +20,10 @@ function LecturerLogin() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    axios
+      .post("", details)
+      .then(() => navigate("/ViewStudents"))
+      .catch((err) => console.log(err));
   }
 
   return (
