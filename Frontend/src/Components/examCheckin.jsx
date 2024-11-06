@@ -21,9 +21,12 @@ function ExamCheckin() {
   function handleSubmit(event) {
     event.preventDefault();
     axios
-      .post("", details)
-      .then(() => navigate("/AuthSuccess"))
-      .catch((err) => console.log(err));
+      .post("http://localhost:8000/Students/examLogin", details)
+      .then((res) => navigate("/AuthSuccess"))
+      .catch((err) => {
+        console.error("Error Occurred:", err);
+        navigate("/AuthFailure")}
+      );
   }
 
   
@@ -41,7 +44,7 @@ function ExamCheckin() {
                 value={details.matricno}
                 className="form-control"
                 placeholder="Matric number"
-                name="matric"
+                name="matricno"
                 aria-label="Matric number"
               />
             </div>

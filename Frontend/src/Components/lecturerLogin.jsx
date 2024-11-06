@@ -21,9 +21,12 @@ function LecturerLogin() {
   function handleSubmit(event) {
     event.preventDefault();
     axios
-      .post("", details)
-      .then(() => navigate("/ViewStudents"))
-      .catch((err) => console.log(err));
+      .post("http://localhost:8000/Lecturers/lecturerLogin", details)
+      .then((res) => navigate("/ViewStudents"))
+      .catch((err) => {
+        console.error("Error Occurred:", err);
+        navigate("/AuthFailure")}
+      );
   }
 
   return (
@@ -31,17 +34,17 @@ function LecturerLogin() {
       <Navbar />
       <div className="container content">
         <h1>Log In</h1>
-        <form id="form_submit" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <div className="row">
             <div className="col">
               <input
+                name="lecturerno"
                 type="text"
                 onChange={handleChange}
                 value={details.lecturerno}
                 className="form-control"
                 placeholder="Lecturer number"
-                name="LectureNumber"
-                aria-label="Lecturer number"
+                required
               />
             </div>
             <div className="col">
@@ -52,7 +55,7 @@ function LecturerLogin() {
                 className="form-control"
                 placeholder="password"
                 name="password"
-                aria-label="Password"
+                required
               />
             </div>
             <div className="row g-3">

@@ -25,7 +25,7 @@ function EnrollLecturers() {
   function handleSubmit(event) {
     event.preventDefault();
     axios
-      .post("", lecturer)
+      .post("http://localhost:8000/Lecturers/EnrolLecturer", lecturer)
       .then(() => navigate("/EnrollSuccess"))
       .catch((err) => console.log(err));
   }

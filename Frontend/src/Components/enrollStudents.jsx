@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 function EnrollStudents() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [student, setStudent] = useState({
-    firstname: " ",
-    lastname: " ",
+    firstname: "",
+    lastname: "",
     matricno: "",
     coursecode: "",
     coursetitle: "",
@@ -25,7 +25,7 @@ function EnrollStudents() {
   function handleSubmit(event) {
     event.preventDefault();
     axios
-      .post("", student)
+      .post("http://localhost:8000/Students/EnrolStudent", student)
       .then((res) => navigate("/EnrollSuccess"))
       .catch((err) => console.log(err));
   }
@@ -35,7 +35,7 @@ function EnrollStudents() {
       <Navbar />
       <div className="container content">
         <h1>Enroll</h1>
-        <form id="form_submit" className="row g-3" onSubmit={handleSubmit}>
+        <form className="row g-3" onSubmit={handleSubmit}>
           <div className="row g-3">
             <div className="col">
               <input
