@@ -2,10 +2,11 @@ const router = require("express").Router();
 let Lecturer = require("../Models/Lecturer.js");
 let Student = require("../Models/Student.js");
 const bcrypt = require("bcrypt");
+require("dotenv").config();
 
 router.route("/EnrolLecturer").post((req, res) => {
   const { firstname, lastname, lecturerno, coursecode, coursetitle, password } = req.body;
-  const saltRounds = process.env.saltRounds;
+  const saltRounds = Number(process.env.saltRounds);
 
   bcrypt.hash(password, saltRounds, (err, hash) => {
     const newLecturer = new Lecturer({
@@ -32,8 +33,8 @@ router.route("/EnrolLecturer").post((req, res) => {
 router.route("/lecturerLogin").post((req, res) => {
   const { lecturerno, password } = req.body;
 
-  Lecturer.findOne({ Lecturernumber: lecturerno }, (err, foundLecturer) => {
-    if (err) {
+  Lecturer.findOne({ Lecturernumber: lecturerno }).then((foundLecturer) => {
+    if (!foundLecturer) {
       console.error(err);
       res.status(401).json({
         message: "Login failed",
@@ -46,7 +47,7 @@ router.route("/lecturerLogin").post((req, res) => {
               success: true,
               message: "Login Successful!",
               Lecturer: {
-                Name: foundLecturer.Firstname + foundLecturer.Lastname,
+                Name: foundLecturer.Firstname + " " + foundLecturer.Lastname,
                 Lecturenumber: foundLecturer.Lecturernumber,
               },
             });
@@ -54,7 +55,7 @@ router.route("/lecturerLogin").post((req, res) => {
         });
       }
     }
-  });
+  })
 });
 
 router.route("/getStudents/:coursecode").get((req, res) => {

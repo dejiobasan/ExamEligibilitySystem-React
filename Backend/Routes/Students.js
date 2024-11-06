@@ -2,6 +2,7 @@ const router = require("express").Router();
 let Student = require("../Models/Student.js");
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
+require("dotenv").config();
 
 router.route("/EnrolStudent").post((req, res) => {
   const uuid = uuidv4();
@@ -11,7 +12,7 @@ router.route("/EnrolStudent").post((req, res) => {
   const uniqueID = `${"CEE"}${firstTwoChars}${paddedRandomNumber}`;
 
   const { firstname, lastname, matricno, coursecode, coursetitle, password } = req.body;
-  const saltRounds = process.env.saltRounds;
+  const saltRounds = Number(process.env.saltRounds);
   bcrypt.hash(password, saltRounds, (err, hash) => {
     const newStudent = new Student({
       ExamID: uniqueID,
@@ -39,8 +40,8 @@ router.route("/EnrolStudent").post((req, res) => {
 router.route("/examLogin").post((req, res) => {
   const { matricno, password } = req.body;
 
-  Student.findOne({ Matricnumber: matricno}, (err, foundStudent) => {
-    if (err) {
+  Student.findOne({ Matricnumber: matricno}).then((foundStudent) => {
+    if (!foundStudent) {
       console.error(err);
       res.status(401).json({
         message: "Login failed",
@@ -53,7 +54,7 @@ router.route("/examLogin").post((req, res) => {
               success: true,
               message: "Login Successful!",
               Student: {
-                Name: foundStudent.Firstname + foundStudent.Lastname,
+                Name: foundStudent.Firstname + " " + foundStudent.Lastname,
                 Matricnumber: foundStudent.Matricnumber,
               }
             });
@@ -61,9 +62,7 @@ router.route("/examLogin").post((req, res) => {
         });
       }
     }
-  });
+  })
 });
-
-
 
 module.exports = router;
