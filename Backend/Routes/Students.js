@@ -4,6 +4,12 @@ const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
 
+router.route("/").get((req, res) => {
+  Student.find()
+  .then(students => res.json(students))
+  .catch(() => res.status(400).send('Error: Server error'));
+})
+
 router.route("/EnrolStudent").post((req, res) => {
   const uuid = uuidv4();
   const firstTwoChars = uuid.slice(0, 2);

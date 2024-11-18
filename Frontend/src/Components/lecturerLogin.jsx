@@ -22,7 +22,7 @@ function LecturerLogin() {
     event.preventDefault();
     axios
       .post("http://localhost:8000/Lecturers/lecturerLogin", details)
-      .then((res) => navigate("/ViewStudents"))
+      .then((res) => navigate("/AvailableStudents"))
       .catch((err) => {
         console.error("Error Occurred:", err);
         navigate("/AuthFailure")}
